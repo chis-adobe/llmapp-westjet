@@ -1,0 +1,35 @@
+[
+  {
+    "id": "placeholder-1",
+    "name": "Placeholder name 1",
+    "description": "Placeholder description 1",
+    "features": [
+      "Placeholder feature 1"
+    ],
+    "price": null,
+    "image_url": null,
+    "source_url": null
+  },
+  {
+    "id": "placeholder-2",
+    "name": "Placeholder name 2",
+    "description": "Placeholder description 2",
+    "features": [
+      "Placeholder feature 2"
+    ],
+    "price": null,
+    "image_url": null,
+    "source_url": null
+  },
+  {
+    "id": "placeholder-3",
+    "name": "Placeholder name 3",
+    "description": "Placeholder description 3",
+    "features": [
+      "Placeholder feature 3"
+    ],
+    "price": null,
+    "image_url": null,
+    "source_url": null
+  }
+]
