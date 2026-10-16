@@ -1,0 +1,80 @@
+[
+  {
+    "id": "check-in-for-flight-1",
+    "name": "Online check-in",
+    "description": "You can check in online using either your six-letter reservation code or ticket number along with your last name, or by signing in to your WestJet Rewards account.",
+    "features": [
+      "Check-in opens 24 hours before departure for most flights",
+      "Reservation code (6 characters) or ticket number (13 digits)",
+      "Last name, or sign in to your WestJet Rewards account"
+    ],
+    "price": null,
+    "image_url": null,
+    "source_url": "https://checkin.westjet.com"
+  },
+  {
+    "id": "check-in-for-flight-2",
+    "name": "WestJet app",
+    "description": "The WestJet app is the easiest way to check in and manage your trip.",
+    "features": [
+      "Check in and verify travel documents",
+      "Add checked baggage",
+      "Upgrade or change seats",
+      "Access your boarding pass anytime"
+    ],
+    "price": null,
+    "image_url": null,
+    "source_url": "https://www.westjet.com/en-ca/manage/mobile-app"
+  },
+  {
+    "id": "check-in-for-flight-3",
+    "name": "Email",
+    "description": "You may also receive an email when check-in opens with a direct link to check in. This link takes you to the same online check-in experience.",
+    "features": [],
+    "price": null,
+    "image_url": null,
+    "source_url": "https://www.westjet.com/en-ca/manage/check-in"
+  },
+  {
+    "id": "check-in-for-flight-4",
+    "name": "Airport check-in counters",
+    "description": "If online check-in is not available, wait until airport check-in opens within three hours of departure. Our airport agents can help complete check-in when you arrive.",
+    "features": [
+      "Open 3 hours before departure for most flights",
+      "Open 4 hours before departure for flights departing from: Barcelona, Dublin, Edinburgh, London Heathrow, Paris, and Rome"
+    ],
+    "price": null,
+    "image_url": null,
+    "source_url": "https://www.westjet.com/en-ca/manage/check-in"
+  },
+  {
+    "id": "check-in-for-flight-5",
+    "name": "Airport kiosks",
+    "description": "Airport kiosks do not support check-in. They are available to print bag tags and boarding passes only. Please check in online or in the WestJet app before arriving to the airport.",
+    "features": [
+      "Print bag tags",
+      "Print boarding passes"
+    ],
+    "price": null,
+    "image_url": null,
+    "source_url": "https://www.westjet.com/en-ca/manage/check-in"
+  },
+  {
+    "id": "check-in-for-flight-6",
+    "name": "Bookings that require agent check-in",
+    "description": "Some bookings require to check in with a WestJet agent earlier than standard check-in times.",
+    "features": [
+      "Requesting wheelchair assistance",
+      "Travelling with oversized or overweight baggage",
+      "Travelling with a pet in the cabin",
+      "Travelling with a pet in checked baggage",
+      "Travelling as an unaccompanied minor",
+      "Domestic: 1 hour 30 minutes (90 minutes) before departure.",
+      "U.S. & International: 1 hour 30 minutes (90 minutes) before departure.",
+      "Flying out of Calgary, Edmonton, Toronto, and Vancouver: Arrive 1 hour 45 minutes (105 minutes) earlier than standard check-in times."
+    ],
+    "price": null,
+    "image_url": null,
+    "source_url": "https://www.westjet.com/en-ca/manage/check-in"
+  }
+]
