@@ -1,0 +1,171 @@
+[
+  {
+    "id": "manage-trip-1",
+    "name": "Manage your trip",
+    "description": "Upgrade your seats, manage guest details and more.",
+    "features": [],
+    "price": null,
+    "image_url": null,
+    "source_url": "https://www.westjet.com/en-ca/manage",
+    "category": "Manage Trips",
+    "cta_label": "Manage trips",
+    "cta_url": "https://www.westjet.com/en-ca/manage"
+  },
+  {
+    "id": "manage-trip-2",
+    "name": "Changes",
+    "description": "Find your options for changing your flight. Changes must be made more than 2 hours before your flight's departure time.",
+    "features": [
+      "You can change your flight within 24 hours of booking for no fee, as long as your flight isn't leaving within the next 24 hours. A fare difference may still apply.",
+      "Change fees are charged per direction, per person, except for flights to and from Europe and Asia, where fees are charged per transaction, per person.",
+      "UltraBasic fares: Changes are not allowed.",
+      "Econo, Premium, Business, and Member Exclusive fares: Change for a fee. Difference in fare price applies.",
+      "EconoFlex, PremiumFlex, and BusinessFlex fares: Change for no fee. Difference in fare price applies.",
+      "There is no change fee for Gold and Platinum members for same-day changes (excludes Ultra Basic fares)."
+    ],
+    "price": null,
+    "image_url": "https://www.westjet.com/content/dam/westjet/images/aircraft/exterior/737-max-8/landscape-16-9/230502-WestJet-MAX8-Runway-768x432.jpg",
+    "source_url": "https://www.westjet.com/en-ca/manage/change-cancel#changes",
+    "category": "Change/Cancel",
+    "cta_label": "Manage Trips",
+    "cta_url": "https://www.westjet.com/en-ca/manage"
+  },
+  {
+    "id": "manage-trip-3",
+    "name": "Cancellations",
+    "description": "Find your options for cancelling your flight. Cancellations must be made more than 2 hours before your flight's departure time.",
+    "features": [
+      "You can cancel your flight within 24 hours of booking for no fee, as long as your flight isn't leaving within the next 24 hours.",
+      "Cancel fees are charged per direction, per person, except for flights to and from Europe and Asia, where fees are charged per transaction, per person.",
+      "UltraBasic fares: No refund or future travel credit.",
+      "EconoFlex fares: Cancel for no fee. Credit issued as Travel Bank.",
+      "Econo, Premium, Business, and Member Exclusive fares: Cancel for a fee. Credit issued as Travel Bank.",
+      "PremiumFlex and BusinessFlex fares: Cancel for no fee. Refund back to original form of payment.",
+      "Cancellation fees are waived when a flexible change/cancel policy is in effect under a travel advisory."
+    ],
+    "price": null,
+    "image_url": "https://www.westjet.com/content/dam/westjet/images/aircraft/exterior/737-max-8/landscape-16-9/230502-WestJet-MAX8-Runway-768x432.jpg",
+    "source_url": "https://www.westjet.com/en-ca/manage/change-cancel#cancellations",
+    "category": "Change/Cancel",
+    "cta_label": "Manage Trips",
+    "cta_url": "https://www.westjet.com/en-ca/manage"
+  },
+  {
+    "id": "manage-trip-4",
+    "name": "Cancel For Any Reason",
+    "description": "Cancel For Any Reason provided by HTS (Hopper Technology Solutions) is an option that allows you to cancel your trip for any reason and receive an 80% or 100% refund to your original form of payment.",
+    "features": [
+      "Total flexibility. Cancel your flight for any reason up to 24 hours before your flight's departure time.",
+      "Customizable coverage. Choose between 80% or 100% refund options to fit your budget.",
+      "Easy refunds. Get refunded to your original form of payment.",
+      "Simple, self-serve cancellation. If your travel plans change, manage your booking online and cancel instantly with no questions asked."
+    ],
+    "price": null,
+    "image_url": null,
+    "source_url": "https://www.westjet.com/en-ca/manage/change-cancel#cancel-for-any-reason",
+    "category": "Change/Cancel",
+    "cta_label": "Manage Trips",
+    "cta_url": "https://www.westjet.com/en-ca/manage"
+  },
+  {
+    "id": "manage-trip-5",
+    "name": "Extended Comfort",
+    "description": "Get extra legroom, early overhead bin access and a complimentary alcoholic beverage with Extended Comfort seating in Economy cabin.",
+    "features": [
+      "Extra legroom",
+      "Early access to overhead bins",
+      "Priority boarding",
+      "Quicker exit upon arrival",
+      "Priority security",
+      "A complimentary alcoholic beverage"
+    ],
+    "price": null,
+    "image_url": "https://www.westjet.com/content/dam/westjet/images/aircraft/cabin/042306-Extended-Comofort-768x432.jpg",
+    "source_url": "https://www.westjet.com/en-ca/manage/extended-comfort",
+    "category": "Seats and upgrades",
+    "cta_label": "Select your seat",
+    "cta_url": "https://www.westjet.com/en-ca/manage?i_cid=wj:extended-comfort:banner:manage:seat-selection"
+  },
+  {
+    "id": "manage-trip-6",
+    "name": "Premium cabin",
+    "description": "Enjoy spacious seats, exclusive inflight dining, priority boarding and more* in Premium cabin.",
+    "features": [
+      "Priority check-in and boarding",
+      "More seat comfort with extra leg and elbow room",
+      "Complimentary bottled water when you board",
+      "Restaurant-style dining on most flights over one hour",
+      "Exclusive snacks and beverages"
+    ],
+    "price": null,
+    "image_url": "https://www.westjet.com/content/dam/westjet/images/aircraft/cabin/042306-Premium-Two-Guests-Premium-Cabin-Meals-768x432.jpg",
+    "source_url": "https://www.westjet.com/en-ca/inflight/premium-cabin",
+    "category": "Upgrades",
+    "cta_label": "Explore Premium",
+    "cta_url": "https://www.westjet.com/en-ca/inflight/premium-cabin"
+  },
+  {
+    "id": "manage-trip-7",
+    "name": "Business cabin",
+    "description": "Recline and relax with lie-flat seats, privacy screens, exclusive inflight dining, premium beverages and priority services.",
+    "features": [
+      "2 checked bags",
+      "Skip the lines with priority check-in, security, boarding, and baggage",
+      "Relax in the lounge before your flight (where available)",
+      "Contemporary Canadian inspired restaurant-style dining",
+      "Exceptional comfort in spacious pods with fully extendable privacy screens"
+    ],
+    "price": null,
+    "image_url": "https://www.westjet.com/content/dam/westjet/images/aircraft/cabin/042306-Business-cabin-cozy-pod-768x432.jpg",
+    "source_url": "https://www.westjet.com/en-ca/inflight/business-cabin",
+    "category": "Upgrades",
+    "cta_label": "Explore Business",
+    "cta_url": "https://www.westjet.com/en-ca/inflight/business-cabin"
+  },
+  {
+    "id": "manage-trip-8",
+    "name": "Before check-in",
+    "description": "Submit an offer for Premium or Business cabin between the time of booking and 54 hours before departure. Or lock in your Premium or Business cabin seat with an instant upgrade purchase, available 10 days before your flight.",
+    "features": [
+      "Enter your reservation code and last name and click \"Place an offer\" to see if you are eligible.",
+      "Making an offer is free; payment is processed only if your offer is accepted.",
+      "Offers can be modified or cancelled up to 54 hours before departure.",
+      "Not available on Ultrabasic fares, codeshare flights, other airlines' tickets, or for unaccompanied minors."
+    ],
+    "price": null,
+    "image_url": "https://www.westjet.com/content/dam/westjet/images/aircraft/cabin/042426-Women-in-business-cabin-meal-768x432.jpg",
+    "source_url": "https://www.westjet.com/en-ca/manage/upgrade/offers",
+    "category": "Ways to upgrade",
+    "cta_label": "Place an offer",
+    "cta_url": "https://www.westjet.com/en-ca/manage/upgrade/offers"
+  },
+  {
+    "id": "manage-trip-9",
+    "name": "At check-in",
+    "description": "Find Business or Premium cabin seats for purchase when you check in for your flight starting 24 hours before departure (subject to availability).",
+    "features": [],
+    "price": null,
+    "image_url": "https://www.westjet.com/content/dam/westjet/images/aircraft/cabin/042426-Family-in-premuim-768x432.jpg",
+    "source_url": "https://www.westjet.com/en-ca/manage/upgrade",
+    "category": "Ways to upgrade",
+    "cta_label": "Upgrade now",
+    "cta_url": "https://www.westjet.com/en-ca/manage/check-in"
+  },
+  {
+    "id": "manage-trip-10",
+    "name": "After check-in",
+    "description": "Bid for the chance to get a last-minute upgrade to Business or Premium 24 hours before departure through a real-time auction.",
+    "features": [
+      "Auctions open 24 hours before departure.",
+      "There's no fee to join the auction – you only pay if your bid wins.",
+      "You can bid for up to 6 guests if they're on the same reservation.",
+      "Once submitted, bids can't be cancelled during a live auction."
+    ],
+    "price": null,
+    "image_url": "https://www.westjet.com/content/dam/westjet/images/aircraft/cabin/042426-Women-in-Premium-wine-768x432.jpg",
+    "source_url": "https://www.westjet.com/en-ca/manage/upgrade/bidding",
+    "category": "Ways to upgrade",
+    "cta_label": "Place a bid",
+    "cta_url": "https://www.westjet.com/en-ca/manage/upgrade/bidding"
+  }
+]
