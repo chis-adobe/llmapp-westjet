@@ -1,12 +1,17 @@
 // find-westjet-flights
 //
-// This action only *collects and echoes* the search arguments. It does not
-// fetch flight data. The live results are fetched client-side by the EDS block
-// (blocks/find-westjet-flights) directly from the FLYR lowest-fares table,
-// because that table is a browser-friendly, origin-open JSON endpoint and the
-// block renders the results widget. The LLM therefore receives the captured
-// arguments (so it can confirm the search back to the user); the widget shows
-// the actual fares.
+// Fetches live fares from the FLYR lowest-fares table (xCheck v2 Tables API)
+// server-side and returns them as records, so the result renders in any MCP
+// host without the widget needing its own (CSP/sandbox-restricted) network
+// access. The EDS block renders these records directly in the LLM path and
+// only fetches client-side for its own direct-web/preview form.
+//
+// The table is a fixed deals table, not a live shopping API: only
+// origin/destination filter it; dates/pax/points/trip type are context only.
+
+const FLYR_BASE = 'https://westjet-api.xcheck.co'
+const FLYR_TABLE_ID = '13664f55-01cb-4ed2-a752-d83228e33207'
+const FLYR_URL = `${FLYR_BASE}/v2/tables/${FLYR_TABLE_ID}`
 
 const PARAMS = [
     { name: 'origin', type: 'string', required: false },
@@ -26,14 +31,79 @@ function typeOk(type, value) {
     return true
 }
 
-function result(text, known) {
-    return {
-        content: [{ type: 'text', text }],
-        // records is intentionally empty: the EDS block fetches live fares from
-        // FLYR using these arguments. Keeping the shape stable means the block's
-        // live path can still read structuredContent.arguments.
-        structuredContent: { arguments: known, records: [] },
+function hasText(value) {
+    return value !== undefined && value !== null && String(value).trim() !== ''
+}
+
+function decodeEntities(value) {
+    if (!hasText(value)) return ''
+    return String(value)
+        .replace(/&amp;/g, '&')
+        .replace(/&#x27;/g, "'")
+        .replace(/&#39;/g, "'")
+        .replace(/&quot;/g, '"')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+}
+
+function codesFromDeeplink(url) {
+    try {
+        const u = new URL(url, FLYR_BASE)
+        return {
+            origin: (u.searchParams.get('origin') || '').trim().toUpperCase(),
+            destination: (u.searchParams.get('destination') || '').trim().toUpperCase(),
+        }
+    } catch (err) {
+        return { origin: '', destination: '' }
     }
+}
+
+// Lower-case and strip diacritics so "Cancun" matches "Cancún", etc.
+function normalize(value) {
+    return String(value).trim().toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '')
+}
+
+function matchLocation(arg, code, city) {
+    if (!hasText(arg)) return true
+    const a = normalize(arg)
+    if (code && a === code.toLowerCase()) return true
+    return Boolean(city) && normalize(city).includes(a)
+}
+
+// Map one raw FLYR row to the record shape the EDS card renderer expects.
+function mapRow(row, index) {
+    const fromCity = decodeEntities(row.web_1)
+    const toCity = decodeEntities(row.web_2)
+    const dates = decodeEntities(row.web_3)
+    const codes = codesFromDeeplink(row.deeplink)
+    const code = codes.origin && codes.destination ? `${codes.origin}–${codes.destination}` : ''
+    return {
+        id: code || `fare-${index + 1}`,
+        name: fromCity && toCity ? `${fromCity} → ${toCity}` : fromCity || toCity,
+        description: dates,
+        price: hasText(row.price) ? decodeEntities(row.price) : null,
+        source_url: hasText(row.deeplink) ? String(row.deeplink) : null,
+        originCode: codes.origin,
+        destCode: codes.destination,
+        originCity: fromCity,
+        destCity: toCity,
+    }
+}
+
+async function fetchFlyrRecords() {
+    const response = await fetch(FLYR_URL, { headers: { accept: 'application/json' } })
+    if (!response.ok) throw new Error(`FLYR responded ${response.status}`)
+    const body = await response.json()
+    const rows = Array.isArray(body && body.data) ? body.data : []
+    return rows.map(mapRow)
+}
+
+function result(text, known, records) {
+    const structuredContent = { arguments: known }
+    // Only include records when we have a definitive answer. Omitting them on a
+    // fetch error lets the block fall back to its own client-side fetch.
+    if (records !== undefined) structuredContent.records = records
+    return { content: [{ type: 'text', text }], structuredContent }
 }
 
 module.exports = async (args = {}) => {
@@ -47,16 +117,33 @@ module.exports = async (args = {}) => {
 
     for (const p of PARAMS) {
         if (p.required && (known[p.name] === undefined || known[p.name] === null || known[p.name] === '')) {
-            return result(`Missing required parameter: ${p.name}.`, known)
+            return result(`Missing required parameter: ${p.name}.`, known, [])
         }
         if (known[p.name] !== undefined && !typeOk(p.type, known[p.name])) {
-            return result(`Invalid parameter ${p.name}: expected ${p.type}.`, known)
+            return result(`Invalid parameter ${p.name}: expected ${p.type}.`, known, [])
         }
     }
 
-    const parts = []
-    if (known.origin) parts.push(`from ${known.origin}`)
-    if (known.destination) parts.push(`to ${known.destination}`)
-    const route = parts.length ? ` ${parts.join(' ')}` : ''
-    return result(`Searching WestJet flights${route}.`, known)
+    let records
+    try {
+        const all = await fetchFlyrRecords()
+        records = all.filter((r) => matchLocation(known.origin, r.originCode, r.originCity)
+            && matchLocation(known.destination, r.destCode, r.destCity))
+    } catch (err) {
+        // Leave records undefined so the block can retry client-side.
+        return result('Could not reach WestJet fares right now.', known, undefined)
+    }
+
+    if (records.length === 0) {
+        const route = hasText(known.origin) && hasText(known.destination)
+            ? ` WestJet doesn't serve ${known.origin} → ${known.destination} in the current deals.`
+            : ''
+        return result(`No WestJet fares matched this search.${route}`, known, records)
+    }
+
+    const n = records.length
+    const summary = records.slice(0, 5)
+        .map((r) => `${r.name}${r.price ? ` (${r.price})` : ''}`)
+        .join('; ')
+    return result(`Found ${n} WestJet fare${n === 1 ? '' : 's'}: ${summary}.`, known, records)
 }
