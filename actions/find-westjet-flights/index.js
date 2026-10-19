@@ -13,14 +13,12 @@ const FLYR_BASE = 'https://westjet-api.xcheck.co'
 const FLYR_TABLE_ID = '13664f55-01cb-4ed2-a752-d83228e33207'
 const FLYR_URL = `${FLYR_BASE}/v2/tables/${FLYR_TABLE_ID}`
 
+// Only origin/destination are inputs: the table is a fixed lowest-fares list,
+// not a date/pax-aware search. (The tool's public input schema lives in the
+// Adobe LLM Apps UI / actions.json; unknown keys are dropped here regardless.)
 const PARAMS = [
     { name: 'origin', type: 'string', required: false },
     { name: 'destination', type: 'string', required: false },
-    { name: 'departure_date', type: 'string', required: false },
-    { name: 'return_date', type: 'string', required: false },
-    { name: 'trip_type', type: 'string', required: false },
-    { name: 'adult_count', type: 'integer', required: false },
-    { name: 'use_points', type: 'boolean', required: false },
 ]
 
 function typeOk(type, value) {
@@ -33,6 +31,12 @@ function typeOk(type, value) {
 
 function hasText(value) {
     return value !== undefined && value !== null && String(value).trim() !== ''
+}
+
+function priceValue(record) {
+    if (!record || record.price === undefined || record.price === null) return Number.POSITIVE_INFINITY
+    const n = Number(String(record.price).replace(/[^\d.]/g, ''))
+    return Number.isFinite(n) ? n : Number.POSITIVE_INFINITY
 }
 
 function decodeEntities(value) {
@@ -129,6 +133,7 @@ module.exports = async (args = {}) => {
         const all = await fetchFlyrRecords()
         records = all.filter((r) => matchLocation(known.origin, r.originCode, r.originCity)
             && matchLocation(known.destination, r.destCode, r.destCity))
+        records.sort((a, b) => priceValue(a) - priceValue(b))
     } catch (err) {
         // Leave records undefined so the block can retry client-side.
         return result('Could not reach WestJet fares right now.', known, undefined)
