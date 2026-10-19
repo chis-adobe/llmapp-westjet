@@ -80,12 +80,15 @@ test('accent- and case-insensitive city matching', async () => {
     } finally { restore() }
 })
 
-test('no origin/destination returns every mapped fare', async () => {
+test('no origin/destination returns every mapped fare, cheapest first', async () => {
     const restore = okTable()
     try {
         const res = await handler({})
         assert.equal(res.structuredContent.records.length, 2)
         assert.deepEqual(res.structuredContent.arguments, {})
+        // 226 CAD (Calgary->Toronto) sorts ahead of 274 CAD (Toronto->Cancun).
+        assert.equal(res.structuredContent.records[0].price, '226 CAD')
+        assert.equal(res.structuredContent.records[1].price, '274 CAD')
     } finally { restore() }
 })
 
@@ -106,21 +109,28 @@ test('a non-ok response also omits records', async () => {
     } finally { restore() }
 })
 
-test('invalid argument type returns [] and names the param without fetching', async () => {
+test('invalid origin type returns [] and names the param without fetching', async () => {
     let called = false
     const restore = stubFetch(async () => { called = true; return { ok: true, json: async () => TABLE } })
     try {
-        const res = await handler({ adult_count: 'two' })
+        const res = await handler({ origin: 123 })
         assert.deepEqual(res.structuredContent.records, [])
-        assert.match(res.content[0].text, /adult_count/)
+        assert.match(res.content[0].text, /origin/)
         assert.equal(called, false)
     } finally { restore() }
 })
 
-test('unknown keys are dropped from echoed arguments', async () => {
+test('non-origin/destination keys (dates, pax, points) are dropped', async () => {
     const restore = okTable()
     try {
-        const res = await handler({ origin: 'YYZ', bogus: 1 })
-        assert.deepEqual(res.structuredContent.arguments, { origin: 'YYZ' })
+        const res = await handler({
+            origin: 'YYZ',
+            destination: 'CUN',
+            departure_date: '2026-11-20',
+            adult_count: 2,
+            use_points: false,
+            bogus: 1,
+        })
+        assert.deepEqual(res.structuredContent.arguments, { origin: 'YYZ', destination: 'CUN' })
     } finally { restore() }
 })
